@@ -7,11 +7,15 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jcp.xml.dsig.internal.dom.Utils;
 import shared.ReceiveObserver;
 
 public class EchoServer implements ReceiveObserver, UserNameObserver{
+
+    private static final Properties properties = Utils.initProperties("server.properties");
 
     private static boolean keepRunning = true;
     private static ServerSocket serverSocket;
@@ -52,8 +56,8 @@ public class EchoServer implements ReceiveObserver, UserNameObserver{
     }
 
     public static void main(String[] args) {
-        String ip = "localhost";
-        int port = 9999;
+        String ip = properties.getProperty("serverIp");
+        int port = Integer.parseInt(properties.getProperty("port"));
         if (args.length == 2) {
             ip = args[0];
             port = Integer.parseInt(args[1]);
