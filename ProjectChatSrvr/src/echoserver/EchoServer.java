@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.jcp.xml.dsig.internal.dom.Utils;
 import shared.ReceiveObserver;
 
 public class EchoServer implements ReceiveObserver, UserNameObserver{
