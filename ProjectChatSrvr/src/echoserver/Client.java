@@ -60,9 +60,14 @@ public class Client implements Runnable {
                     }
 
                 }
+                else{
+                    String[] forward = msg.split("#");
+                    if (forward[0].equals("SEND"))
+                    observer.notify(msg);
+                }
 //                    System.out.println("message received: " + msg);
 
-                observer.notify(msg);
+                
             }
         }
         try {
