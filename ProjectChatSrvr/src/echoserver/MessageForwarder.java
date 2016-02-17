@@ -13,7 +13,7 @@ import java.util.Queue;
  * @author Michael
  */
 public class MessageForwarder implements Runnable{
-    Queue q;
+    Queue<MyMessage> q;
     Boolean running = true;
     public MessageForwarder(Queue queue){
         this.q = queue;
