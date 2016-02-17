@@ -5,6 +5,7 @@
  */
 package echoserver;
 
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,15 +15,15 @@ import java.util.List;
  * @author Michael
  */
 public class MyMessage {
-    List<Socket> sockets = new ArrayList();
+    List<PrintWriter> writers = new ArrayList();
     String message = "";
 
-    public List<Socket> getSockets() {
-        return sockets;
+    public List<PrintWriter> getWriters() {
+        return writers;
     }
 
-    public void addSocket(Socket sock) {
-        sockets.add(sock);
+    public void addWriter(PrintWriter writer) {
+        writers.add(writer);
     }
 
     public String getMessage() {
