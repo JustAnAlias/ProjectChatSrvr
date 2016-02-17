@@ -63,9 +63,16 @@ public class Client implements Runnable {
                     }
 
                 }
+                else{
+                    String[] forward = msg.split("#");
+                    if (forward[0].equals("SEND")){
+                        forward[2] = userName + "says: " + forward[2];
+                    }
+                    observer.notify(msg);
+                }
 //                    System.out.println("message received: " + msg);
 
-                observer.notify(msg);
+                
             }
         }
         try {
