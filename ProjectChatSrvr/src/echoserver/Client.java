@@ -22,6 +22,7 @@ public class Client implements Runnable {
     ReceiveObserver observer;
     Socket socket;
     PrintWriter pw;
+    private PrintWriter out;
     Scanner sc;
     String userName = null;
     private boolean running = true;
@@ -44,7 +45,9 @@ public class Client implements Runnable {
     public void send(String message) {
         pw.println(message);
     }
-
+    public PrintWriter getWriter(){
+        return out;
+    }
     @Override
     public void run() {
         while (socket.isConnected() && running) {
@@ -68,7 +71,7 @@ public class Client implements Runnable {
         try {
             socket.close();
         } catch (IOException ex) {
-            Logger.getLogger(EchoServer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -89,4 +92,8 @@ public class Client implements Runnable {
         }
 
     }
+    public String getUserName(){
+        return userName;
+    }
+    
 }

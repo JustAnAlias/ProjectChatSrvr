@@ -68,6 +68,7 @@ public class ClientHandler2 extends ProtocolStrings {
             case USER:
                 userName = splitted[1];
                 server.addClient(userName, this);
+                server.userList(); // Send userlist
                 break;
             case MSG:
                 String receivers = splitted[1];
@@ -80,11 +81,7 @@ public class ClientHandler2 extends ProtocolStrings {
         }
     }
     
-    
-    public PrintWriter getWriter(){
-        return out;
-    }
-    
+        
     public String getUserName(){
         return userName;
     }

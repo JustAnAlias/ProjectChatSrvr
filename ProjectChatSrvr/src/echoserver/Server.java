@@ -1,6 +1,7 @@
 package echoserver;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -11,6 +12,7 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import server.ClientHandler2;
+import static shared.ProtocolStrings.USERLIST;
 import shared.ReceiveObserver;
 
 public class Server implements ReceiveObserver, UserNameObserver{
@@ -79,7 +81,22 @@ public class Server implements ReceiveObserver, UserNameObserver{
     }
 
     public void userList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<String> userList = new ArrayList<String>();
+        for (String userName : users.keySet()) userList.add(userName); // Get all keysets from map
+        for (Client c : users.values())  // get the list of values
+        {
+            PrintWriter out = c.getWriter();
+            String userNames = "";
+            for (String userName : userList) {
+                if (!userName.equals(c.getUserName())) {
+                    userNames += userName + ","; // Adding a comma in the end of the string
+                }
+            }
+            if (userNames.length() > 0) {
+                userNames = userNames.substring(0, userNames.length() - 1); //removing the last comma from the string
+            }
+            out.println(USERLIST + "#" + userNames);
+        }
     }
 
     public void sendMsg(String userName, String receivers, String msg) {
