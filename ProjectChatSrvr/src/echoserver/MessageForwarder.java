@@ -5,6 +5,7 @@
  */
 package echoserver;
 
+import java.io.PrintWriter;
 import java.util.Queue;
 
 /**
@@ -21,7 +22,13 @@ public class MessageForwarder implements Runnable{
     @Override
     public void run() {
         while (running){
-            String
+            if (q.peek()!=null){
+                MyMessage msg = q.poll();
+                String m = msg.getMessage();
+                for(PrintWriter pw : msg.getWriters()){
+                    pw.println(m);
+                }
+            }
         }
     }
             
