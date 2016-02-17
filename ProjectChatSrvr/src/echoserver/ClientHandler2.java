@@ -67,7 +67,7 @@ public class ClientHandler2 extends ProtocolStrings {
         switch(protocol){
             case USER:
                 userName = splitted[1];
-                server.addClient(userName, this);
+//                server.addClient(userName, this);
                 server.userList(); // Send userlist
                 break;
             case MSG:

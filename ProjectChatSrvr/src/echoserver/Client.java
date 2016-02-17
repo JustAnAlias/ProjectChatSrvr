@@ -11,6 +11,9 @@ import java.net.Socket;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static shared.ProtocolStrings.MSG;
+import static shared.ProtocolStrings.STOP;
+import static shared.ProtocolStrings.USER;
 import shared.ReceiveObserver;
 
 /**
@@ -18,6 +21,7 @@ import shared.ReceiveObserver;
  * @author Michael
  */
 public class Client implements Runnable {
+    Server server;
     UserNameObserver uObs;
     ReceiveObserver observer;
     Socket socket;
@@ -35,8 +39,12 @@ public class Client implements Runnable {
             this.pw = new PrintWriter(socket.getOutputStream(), true);
             sc = new Scanner(socket.getInputStream());
             setUserName(sc.nextLine());
-            
             pw.println("Welcome " + userName + "@" + socket.getRemoteSocketAddress());
+            String message = "";
+            while (!message.equals(STOP)) {
+            message = sc.nextLine();
+                    handleMsg(message);            
+            }      
         } catch (Exception e) {
             running = false;
         }
@@ -101,6 +109,26 @@ public class Client implements Runnable {
     }
     public String getUserName(){
         return userName;
+    }
+
+    private void handleMsg(String message) {
+        String[] splitted = message.split("#");
+        String protocol = splitted[0];
+        switch(protocol){
+            case USER:
+                userName = splitted[1];
+                server.addClient(userName, this);
+                server.userList(); // Send userlist
+                break;
+            case MSG:
+                String receivers = splitted[1];
+                String msg = splitted[2];
+                server.sendMsg(userName, receivers, msg);
+                break;
+            case STOP:
+                break;
+            default:
+        }
     }
     
 }

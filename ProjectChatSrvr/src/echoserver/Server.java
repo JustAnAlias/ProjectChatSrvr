@@ -76,10 +76,6 @@ public class Server implements ReceiveObserver, UserNameObserver{
         
     }
 
-    public void addClient(String userName, ClientHandler2 aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public void userList() {
         ArrayList<String> userList = new ArrayList<String>();
         for (String userName : users.keySet()) userList.add(userName); // Get all keysets from map
@@ -106,6 +102,10 @@ public class Server implements ReceiveObserver, UserNameObserver{
     @Override
     public void addUser(String userName, Client client) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void addClient(String userName, Client client) {
+        users.put(userName, client);
     }
 
 
